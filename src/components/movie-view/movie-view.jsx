@@ -6,20 +6,32 @@ export class MovieView extends React.Component {
   render() {
     const { movie, onBackClick } = this.props;
     return (
-      <Card className="text-center" style={{ width: "30rem" }}>
-        <Card.Img variant="top" src={movie.ImagePath} />
-        <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
-        </Card.Body>
-        <Button
-          onClick={() => {
-            onBackClick(null);
-          }}
-        >
-          Back
-        </Button>
-      </Card>
+      <Container align="center">
+        <Row>
+          <Col>
+            <Card
+              border="primary"
+              className="text-center"
+              style={{ width: "30rem" }}
+            >
+              <Card.Img variant="top" src={movie.ImagePath} />
+              <Card.Body>
+                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Text>{movie.Description}</Card.Text>
+                <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
+                <Card.Text>Director: {movie.Director.Name}</Card.Text>
+              </Card.Body>
+              <Button
+                onClick={() => {
+                  onBackClick(null);
+                }}
+              >
+                Back
+              </Button>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

@@ -36,7 +36,7 @@ export function RegistrationView(props) {
           <CardGroup>
             <Card>
               <Card.Body>
-                <Card.Title>Registrations</Card.Title>
+                <Card.Title>Registration</Card.Title>
                 <Form>
                   <Form.Group>
                     <Form.Label>Username:</Form.Label>

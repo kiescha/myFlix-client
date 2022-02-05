@@ -22752,6 +22752,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _reactBootstrap = require("react-bootstrap");
 var _mainViewScss = require("./main-view.scss");
+var _registrationView = require("../registration-view/registration-view");
 var _loginView = require("../login-view/login-view");
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
@@ -22785,74 +22786,28 @@ class MainView extends _reactDefault.default.Component {
     }
     render() {
         const { movies , selectedMovie , user  } = this.state;
-        if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-            onLoggedIn: (user1)=>this.onLoggedIn(user1)
-            ,
-            __source: {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 49
-            },
-            __self: this
-        }));
+        // if (!user)
+        //       return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
         if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 51
+                lineNumber: 52
             },
             __self: this
         }));
-        return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Container, {
+        return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 54
+                lineNumber: 55
             },
             __self: this,
-            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
-                className: "justify-content-md-center",
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 55
+                    lineNumber: 56
                 },
-                __self: this,
-                children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
-                    md: 8,
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 57
-                    },
-                    __self: this,
-                    children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
-                        movie: selectedMovie,
-                        onBackClick: (newSelectedMovie)=>{
-                            this.setSelectedMovie(newSelectedMovie);
-                        },
-                        __source: {
-                            fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 58
-                        },
-                        __self: this
-                    })
-                }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
-                        md: 4,
-                        __source: {
-                            fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 67
-                        },
-                        __self: this,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
-                            movie: movie,
-                            onMovieClick: (movie1)=>{
-                                this.setSelectedMovie(movie1);
-                            },
-                            __source: {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 68
-                            },
-                            __self: this
-                        }, movie._id)
-                    })
-                )
+                __self: this
             })
         }));
     }
@@ -22863,7 +22818,7 @@ class MainView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jCE1P","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"3krXe","axios":"iYoWk","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../login-view/login-view":"054li","./main-view.scss":"jyMAr","react-bootstrap":"h2YVd"}],"jCE1P":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jCE1P","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"3krXe","axios":"iYoWk","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../login-view/login-view":"054li","react-bootstrap":"h2YVd","./main-view.scss":"jyMAr","../registration-view/registration-view":"aP2YV"}],"jCE1P":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -24638,7 +24593,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 15
                             },
                             __self: this,
-                            children: movie.Description
+                            children: movie.Genre.Name
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                             onClick: ()=>onMovieClick(movie)
@@ -24649,7 +24604,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 16
                             },
                             __self: this,
-                            children: "Open"
+                            children: "More Details"
                         })
                     ]
                 })
@@ -24660,7 +24615,7 @@ class MovieCard extends _reactDefault.default.Component {
 MovieCard.propTypes = {
     movie: _propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
+        Genre: _propTypesDefault.default.string.isRequired,
         ImagePath: _propTypesDefault.default.string.isRequired
     }).isRequired,
     onMovieClick: _propTypesDefault.default.func.isRequired
@@ -25781,63 +25736,108 @@ var _reactBootstrap = require("react-bootstrap");
 class MovieView extends _reactDefault.default.Component {
     render() {
         const { movie , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
-            className: "text-center",
-            style: {
-                width: "30rem"
-            },
+        return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Container, {
+            align: "center",
             __source: {
                 fileName: "src/components/movie-view/movie-view.jsx",
                 lineNumber: 9
             },
             __self: this,
-            children: [
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
-                    variant: "top",
-                    src: movie.ImagePath,
-                    __source: {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 10
-                    },
-                    __self: this
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Body, {
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+                __source: {
+                    fileName: "src/components/movie-view/movie-view.jsx",
+                    lineNumber: 10
+                },
+                __self: this,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                     __source: {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 11
                     },
                     __self: this,
-                    children: [
-                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
-                            __source: {
-                                fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 12
-                            },
-                            __self: this,
-                            children: movie.Title
-                        }),
-                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
-                            __source: {
-                                fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 13
-                            },
-                            __self: this,
-                            children: movie.Description
-                        })
-                    ]
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                    onClick: ()=>{
-                        onBackClick(null);
-                    },
-                    __source: {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 15
-                    },
-                    __self: this,
-                    children: "Back"
+                    children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
+                        border: "primary",
+                        className: "text-center",
+                        style: {
+                            width: "30rem"
+                        },
+                        __source: {
+                            fileName: "src/components/movie-view/movie-view.jsx",
+                            lineNumber: 12
+                        },
+                        __self: this,
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
+                                variant: "top",
+                                src: movie.ImagePath,
+                                __source: {
+                                    fileName: "src/components/movie-view/movie-view.jsx",
+                                    lineNumber: 17
+                                },
+                                __self: this
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Body, {
+                                __source: {
+                                    fileName: "src/components/movie-view/movie-view.jsx",
+                                    lineNumber: 18
+                                },
+                                __self: this,
+                                children: [
+                                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
+                                        __source: {
+                                            fileName: "src/components/movie-view/movie-view.jsx",
+                                            lineNumber: 19
+                                        },
+                                        __self: this,
+                                        children: movie.Title
+                                    }),
+                                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
+                                        __source: {
+                                            fileName: "src/components/movie-view/movie-view.jsx",
+                                            lineNumber: 20
+                                        },
+                                        __self: this,
+                                        children: movie.Description
+                                    }),
+                                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Text, {
+                                        __source: {
+                                            fileName: "src/components/movie-view/movie-view.jsx",
+                                            lineNumber: 21
+                                        },
+                                        __self: this,
+                                        children: [
+                                            "Genre: ",
+                                            movie.Genre.Name
+                                        ]
+                                    }),
+                                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Text, {
+                                        __source: {
+                                            fileName: "src/components/movie-view/movie-view.jsx",
+                                            lineNumber: 22
+                                        },
+                                        __self: this,
+                                        children: [
+                                            "Director: ",
+                                            movie.Director.Name
+                                        ]
+                                    })
+                                ]
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                onClick: ()=>{
+                                    onBackClick(null);
+                                },
+                                __source: {
+                                    fileName: "src/components/movie-view/movie-view.jsx",
+                                    lineNumber: 24
+                                },
+                                __self: this,
+                                children: "Back"
+                            })
+                        ]
+                    })
                 })
-            ]
+            })
         }));
     }
 }
@@ -37269,110 +37269,132 @@ function LoginView(props) {
         console.log(username, password);
         props.onLoggedIn(username);
     };
-    return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
-        border: "primary",
-        style: {
-            width: "25rem"
-        },
-        className: "text-center",
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Container, {
+        align: "center",
         __source: {
             fileName: "src/components/login-view/login-view.jsx",
             lineNumber: 14
         },
         __self: this,
-        children: [
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Header, {
-                __source: {
-                    fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 15
-                },
-                __self: this,
-                children: "Log in"
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Body, {
+        children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+            __source: {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 15
+            },
+            __self: this,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                 __source: {
                     fileName: "src/components/login-view/login-view.jsx",
                     lineNumber: 16
                 },
                 __self: this,
-                children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
+                children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
+                    border: "primary",
+                    style: {
+                        width: "25rem"
+                    },
+                    className: "text-center",
                     __source: {
                         fileName: "src/components/login-view/login-view.jsx",
                         lineNumber: 17
                     },
                     __self: this,
                     children: [
-                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                            controlid: "formUsername",
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Header, {
                             __source: {
                                 fileName: "src/components/login-view/login-view.jsx",
-                                lineNumber: 18
+                                lineNumber: 22
                             },
                             __self: this,
-                            children: [
-                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
-                                    __source: {
-                                        fileName: "src/components/login-view/login-view.jsx",
-                                        lineNumber: 19
-                                    },
-                                    __self: this,
-                                    children: "Username:"
-                                }),
-                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                                    type: "text",
-                                    onChange: (e)=>setUsername(e.target.value)
-                                    ,
-                                    __source: {
-                                        fileName: "src/components/login-view/login-view.jsx",
-                                        lineNumber: 20
-                                    },
-                                    __self: this
-                                })
-                            ]
+                            children: "Log in"
                         }),
-                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
-                            controlid: "formPassword",
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Body, {
                             __source: {
                                 fileName: "src/components/login-view/login-view.jsx",
-                                lineNumber: 25
+                                lineNumber: 23
                             },
                             __self: this,
-                            children: [
-                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
-                                    __source: {
-                                        fileName: "src/components/login-view/login-view.jsx",
-                                        lineNumber: 26
-                                    },
-                                    __self: this,
-                                    children: "Password:"
-                                }),
-                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
-                                    type: "text",
-                                    onChange: (e)=>setPassword(e.target.value)
-                                    ,
-                                    __source: {
-                                        fileName: "src/components/login-view/login-view.jsx",
-                                        lineNumber: 27
-                                    },
-                                    __self: this
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
-                            variant: "primary",
-                            type: "submit",
-                            onClick: handleSubmit,
-                            __source: {
-                                fileName: "src/components/login-view/login-view.jsx",
-                                lineNumber: 32
-                            },
-                            __self: this,
-                            children: "Submit"
+                            children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
+                                __source: {
+                                    fileName: "src/components/login-view/login-view.jsx",
+                                    lineNumber: 24
+                                },
+                                __self: this,
+                                children: [
+                                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                        controlid: "formUsername",
+                                        __source: {
+                                            fileName: "src/components/login-view/login-view.jsx",
+                                            lineNumber: 25
+                                        },
+                                        __self: this,
+                                        children: [
+                                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                __source: {
+                                                    fileName: "src/components/login-view/login-view.jsx",
+                                                    lineNumber: 26
+                                                },
+                                                __self: this,
+                                                children: "Username:"
+                                            }),
+                                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                type: "text",
+                                                onChange: (e)=>setUsername(e.target.value)
+                                                ,
+                                                __source: {
+                                                    fileName: "src/components/login-view/login-view.jsx",
+                                                    lineNumber: 27
+                                                },
+                                                __self: this
+                                            })
+                                        ]
+                                    }),
+                                    /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                        controlid: "formPassword",
+                                        __source: {
+                                            fileName: "src/components/login-view/login-view.jsx",
+                                            lineNumber: 32
+                                        },
+                                        __self: this,
+                                        children: [
+                                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                __source: {
+                                                    fileName: "src/components/login-view/login-view.jsx",
+                                                    lineNumber: 33
+                                                },
+                                                __self: this,
+                                                children: "Password:"
+                                            }),
+                                            /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                type: "text",
+                                                onChange: (e)=>setPassword(e.target.value)
+                                                ,
+                                                __source: {
+                                                    fileName: "src/components/login-view/login-view.jsx",
+                                                    lineNumber: 34
+                                                },
+                                                __self: this
+                                            })
+                                        ]
+                                    }),
+                                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                        variant: "primary",
+                                        type: "submit",
+                                        onClick: handleSubmit,
+                                        __source: {
+                                            fileName: "src/components/login-view/login-view.jsx",
+                                            lineNumber: 39
+                                        },
+                                        __self: this,
+                                        children: "Submit"
+                                    })
+                                ]
+                            })
                         })
                     ]
                 })
             })
-        ]
+        })
     }));
 }
 _s(LoginView, "Lrw7JeD9zj6OUWhT/IH4OIvPKEk=");
@@ -37385,6 +37407,251 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jCE1P","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"3krXe","react-bootstrap":"h2YVd"}],"jyMAr":[function() {},{}],"jUTZ8":[function() {},{}]},["7WAyJ","bZRuf","dLPEP"], "dLPEP", "parcelRequireaec4")
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jCE1P","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"3krXe","react-bootstrap":"h2YVd"}],"jyMAr":[function() {},{}],"aP2YV":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$8dd4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8dd4.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RegistrationView", ()=>RegistrationView
+);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _registrationViewScss = require("./registration-view.scss");
+var _reactBootstrap = require("react-bootstrap");
+var _s = $RefreshSig$();
+function RegistrationView(props) {
+    _s();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        _axiosDefault.default.post("https://manoflixdb.herokuapp.com/users", {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthday
+        }).then((response)=>{
+            const data = response.data;
+            console.log(data);
+            window.open("/", "_self");
+        }).catch((e1)=>{
+            console.log("error registering the user");
+        });
+    };
+    return(/*#__PURE__*/ _jsxRuntime.jsx(Container, {
+        __source: {
+            fileName: "src/components/registration-view/registration-view.jsx",
+            lineNumber: 33
+        },
+        __self: this,
+        children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
+            __source: {
+                fileName: "src/components/registration-view/registration-view.jsx",
+                lineNumber: 34
+            },
+            __self: this,
+            children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
+                __source: {
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 35
+                },
+                __self: this,
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.CardGroup, {
+                    __source: {
+                        fileName: "src/components/registration-view/registration-view.jsx",
+                        lineNumber: 36
+                    },
+                    __self: this,
+                    children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card, {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 37
+                        },
+                        __self: this,
+                        children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Body, {
+                            __source: {
+                                fileName: "src/components/registration-view/registration-view.jsx",
+                                lineNumber: 38
+                            },
+                            __self: this,
+                            children: [
+                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Title, {
+                                    __source: {
+                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                        lineNumber: 39
+                                    },
+                                    __self: this,
+                                    children: "Registration"
+                                }),
+                                /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
+                                    __source: {
+                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                        lineNumber: 40
+                                    },
+                                    __self: this,
+                                    children: [
+                                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                            __source: {
+                                                fileName: "src/components/registration-view/registration-view.jsx",
+                                                lineNumber: 41
+                                            },
+                                            __self: this,
+                                            children: [
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 42
+                                                    },
+                                                    __self: this,
+                                                    children: "Username:"
+                                                }),
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                    type: "text",
+                                                    value: username,
+                                                    onChange: (e)=>setUsername(e.target.value)
+                                                    ,
+                                                    required: true,
+                                                    placeholder: "Enter a username",
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 43
+                                                    },
+                                                    __self: this
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                            __source: {
+                                                fileName: "src/components/registration-view/registration-view.jsx",
+                                                lineNumber: 51
+                                            },
+                                            __self: this,
+                                            children: [
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 52
+                                                    },
+                                                    __self: this,
+                                                    children: "Password"
+                                                }),
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                    type: "text",
+                                                    value: password,
+                                                    onChange: (e)=>setPassword(e.target.value)
+                                                    ,
+                                                    required: true,
+                                                    placeholder: "Enter a password",
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 53
+                                                    },
+                                                    __self: this
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                            __source: {
+                                                fileName: "src/components/registration-view/registration-view.jsx",
+                                                lineNumber: 61
+                                            },
+                                            __self: this,
+                                            children: [
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 62
+                                                    },
+                                                    __self: this,
+                                                    children: "Email"
+                                                }),
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                    type: "text",
+                                                    value: email,
+                                                    onChange: (e)=>setEmail(e.target.value)
+                                                    ,
+                                                    required: true,
+                                                    placeholder: "Enter a Email",
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 63
+                                                    },
+                                                    __self: this
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form.Group, {
+                                            __source: {
+                                                fileName: "src/components/registration-view/registration-view.jsx",
+                                                lineNumber: 71
+                                            },
+                                            __self: this,
+                                            children: [
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Label, {
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 72
+                                                    },
+                                                    __self: this,
+                                                    children: "Birthday"
+                                                }),
+                                                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Form.Control, {
+                                                    type: "text",
+                                                    value: birthday,
+                                                    onChange: (e)=>setBirthday(e.target.value)
+                                                    ,
+                                                    required: true,
+                                                    placeholder: "Enter a birthday",
+                                                    __source: {
+                                                        fileName: "src/components/registration-view/registration-view.jsx",
+                                                        lineNumber: 73
+                                                    },
+                                                    __self: this
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                            variant: "primary",
+                                            type: "submit",
+                                            onClick: handleSubmit,
+                                            __source: {
+                                                fileName: "src/components/registration-view/registration-view.jsx",
+                                                lineNumber: 81
+                                            },
+                                            __self: this,
+                                            children: "Submit"
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    })
+                })
+            })
+        })
+    }));
+}
+_s(RegistrationView, "jsOQN3GC2XlBG9ITlzCdpyJOnso=");
+_c = RegistrationView;
+var _c;
+$RefreshReg$(_c, "RegistrationView");
+
+  $parcel$ReactRefreshHelpers$8dd4.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","./registration-view.scss":"fr9ZP","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"jCE1P","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"3krXe"}],"fr9ZP":[function() {},{}],"jUTZ8":[function() {},{}]},["7WAyJ","bZRuf","dLPEP"], "dLPEP", "parcelRequireaec4")
 
 //# sourceMappingURL=index.6701a6e1.js.map
