@@ -1,11 +1,14 @@
 
 
+#welcome-msg {
+  text-align: center;
+}
 * {
-  background-color: #b5c6c9;
+  background-color: #3b3d3d;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  color: #ffff;
 }
-
 .my-flix {
   color: steelblue;
 }
