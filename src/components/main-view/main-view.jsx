@@ -56,7 +56,7 @@ export class MainView extends React.Component {
           <h1>Today's Top 10 Movies</h1>
         </div>
 
-        <Row className="main-view justify-content-md-center">
+        <Row className="justify-content-md-center">
           {selectedMovie ? (
             <Col>
               <MovieView
