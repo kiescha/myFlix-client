@@ -9,8 +9,13 @@ export class MovieCard extends React.Component {
     const { movie, onMovieClick } = this.props;
 
     return (
-      <Card border="primary" className="text-center" style={{ width: "20rem" }}>
-        <Card.Img variant="top" src={movie.ImagePath} />
+      <Card
+        id="moviecard-picture"
+        border="dark"
+        className="text-center"
+        style={{ width: "18rem" }}
+      >
+        <Card.Img id="card-img" variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Genre.Name}</Card.Text>

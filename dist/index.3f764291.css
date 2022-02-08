@@ -1,13 +1,30 @@
-
-
-#welcome-msg {
-  text-align: center;
+#moviecard-picture {
+  margin: 10px 10px;
+  height: 100%;
 }
+
+#card-img {
+  height: 20rem;
+  object-fit: contain;
+}
+#movie-picture {
+  height: 30rem;
+  object-fit: contain;
+}
+
+#movie-card {
+  height: fit;
+}
+
 * {
-  background-color: #3b3d3d;
+  background-color: #021313;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   color: #ffff;
+}
+
+#welcome-msg {
+  text-align: center;
 }
 .my-flix {
   color: steelblue;

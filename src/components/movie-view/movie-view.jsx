@@ -10,11 +10,17 @@ export class MovieView extends React.Component {
         <Row>
           <Col>
             <Card
-              border="primary"
+              border="dark"
+              id="movie-card"
               className="text-center"
               style={{ width: "30rem" }}
             >
-              <Card.Img variant="top" src={movie.ImagePath} />
+              <Card.Img
+                id="movie-picture"
+                border="primary"
+                variant="top"
+                src={movie.ImagePath}
+              />
               <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
                 <Card.Text>{movie.Description}</Card.Text>
