@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Container, Form, Button, Card, Stack } from "react-bootstrap";
 import "./login-view.scss";
 
@@ -8,8 +9,18 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    props.onLoggedIn(username);
+    axios
+      .post("https://manoflixdb.herokuapp.com/login", {
+        Username: username,
+        Password: password,
+      })
+      .then((response) => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch((e) => {
+        console.log("No user found");
+      });
   };
   return (
     <>
@@ -28,18 +39,20 @@ export function LoginView(props) {
           <Card.Body>
             <Form>
               <Stack gap={3}>
-                <Form.Group controlid="formUsername">
+                <Form.Group controlId="formUsername">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control
                     type="text"
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter your Username"
                   />
                 </Form.Group>
-                <Form.Group controlid="formPassword">
+                <Form.Group controlId="formPassword">
                   <Form.Label>Password:</Form.Label>
                   <Form.Control
                     type="text"
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                   />
