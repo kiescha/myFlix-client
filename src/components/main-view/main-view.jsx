@@ -19,7 +19,7 @@ export class MainView extends React.Component {
   
   getMovies(token){
     axios.get("https://manoflixdb.herokuapp.com/movies", {
-      headers: {Authorization: `Bearer ${token}`}
+      headers: {Authorization: `Bearer${token}`}
     })
     .then(response => {
       this.setState({
