@@ -11,8 +11,8 @@ export function LoginView(props) {
     e.preventDefault();
     axios
       .post("https://manoflixdb.herokuapp.com/login", {
-        Username: username,
-        Password: password,
+        userName: username,
+        password: password,
       })
       .then((response) => {
         const data = response.data;
